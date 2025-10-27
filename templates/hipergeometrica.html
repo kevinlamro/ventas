@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribución Hipergeométrica - Simulador</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <div class="floating-shapes">
+        <div class="shape">σ</div>
+        <div class="shape">μ</div>
+        <div class="shape">λ</div>
+        <div class="shape">π</div>
+        <div class="shape">Σ</div>
+        <div class="shape">∞</div>
+        <div class="shape">√</div>
+        <div class="shape">∫</div>
+        <div class="shape">≈</div>
+        <div class="shape">≤</div>
+        <div class="shape">≥</div>
+        <div class="shape">χ²</div>
+        <div class="shape">β</div>
+        <div class="shape">α</div>
+        <div class="shape">∑</div>
+    </div> 
+
+    <div class="container">
+        <header>
+            <h1>Distribución Hipergeométrica</h1>
+            <h2>Selección de Clientes Potenciales</h2>
+        </header>
+
+        <div class="nav-buttons">
+            <a href="/" class="btn btn-secondary">⬅ Volver al Inicio</a>
+        </div>
+
+        <section class="formulario-seccion">
+            <h3>Pregunta Comercial</h3>
+            <p class="pregunta" style="text-align: center; font-size: 1.1em; color: #555; margin: 20px 0;">
+                "De una base de <strong>N</strong> clientes con <strong>K</strong> prospects buenos, 
+                si contacto una muestra de <strong>n</strong> clientes, 
+                ¿cuál es la probabilidad de obtener <strong>k</strong> prospects buenos?"
+            </p>
+
+            <form action="/calcular_hipergeometrica" method="POST" id="form-hipergeometrica">
+                
+                <div class="form-group">
+                    <label for="N">Tamaño total de la base de clientes (N)</label>
+                    <input type="number" id="N" name="N" min="1" required>
+                    <small>Ejemplo: 1000 clientes</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="K">Número de prospects buenos en la base (K)</label>
+                    <input type="number" id="K" name="K" min="0" required>
+                    <small>Ejemplo: 300 prospects buenos</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="n">Tamaño de la muestra a contactar (n)</label>
+                    <input type="number" id="n" name="n" min="1" required>
+                    <small>Ejemplo: 50 clientes a contactar</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="k">Prospects buenos esperados en la muestra (k)</label>
+                    <input type="number" id="k" name="k" min="0" required>
+                    <small>Ejemplo: 15 prospects</small>
+                </div>
+
+                <div class="btn-container">
+                    <button type="submit" class="btn">🔍 Calcular Probabilidades</button>
+                </div>
+
+            </form>
+        </section>
+
+        <div id="resultados-container">
+            <!-- Aquí se mostrarán los resultados dinámicamente -->
+        </div>
+
+        <footer>
+            <p>&copy; 2025 - Universidad Del Sinú | Distribución Hipergeométrica</p>
+        </footer>
+    </div>
+
+    <script>
+        // Validación básica del formulario
+        document.getElementById('form-hipergeometrica').addEventListener('submit', function(e) {
+            const N = parseInt(document.getElementById('N').value);
+            const K = parseInt(document.getElementById('K').value);
+            const n = parseInt(document.getElementById('n').value);
+            const k = parseInt(document.getElementById('k').value);
+
+            if (K > N) {
+                e.preventDefault();
+                alert('❌ Error: El número de prospects buenos (K) no puede ser mayor que el total de clientes (N)');
+                return false;
+            }
+
+            if (n > N) {
+                e.preventDefault();
+                alert('❌ Error: El tamaño de la muestra (n) no puede ser mayor que el total de clientes (N)');
+                return false;
+            }
+
+            if (k > n) {
+                e.preventDefault();
+                alert('❌ Error: Los prospects esperados (k) no pueden ser mayores que el tamaño de la muestra (n)');
+                return false;
+            }
+
+            if (k > K) {
+                e.preventDefault();
+                alert('❌ Error: Los prospects esperados (k) no pueden ser mayores que el total de prospects buenos (K)');
+                return false;
+            }
+
+            // Validación adicional: max(0, n+K-N) <= k <= min(n, K)
+            const k_min = Math.max(0, n + K - N);
+            const k_max = Math.min(n, K);
+
+            if (k < k_min || k > k_max) {
+                e.preventDefault();
+                alert(`❌ Error: Para los parámetros dados, k debe estar entre ${k_min} y ${k_max}`);
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>

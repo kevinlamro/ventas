@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribución Poisson - Simulador</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <div class="floating-shapes">
+        <div class="shape">σ</div>
+        <div class="shape">μ</div>
+        <div class="shape">λ</div>
+        <div class="shape">π</div>
+        <div class="shape">Σ</div>
+        <div class="shape">∞</div>
+        <div class="shape">√</div>
+        <div class="shape">∫</div>
+        <div class="shape">≈</div>
+        <div class="shape">≤</div>
+        <div class="shape">≥</div>
+        <div class="shape">χ²</div>
+        <div class="shape">β</div>
+        <div class="shape">α</div>
+        <div class="shape">∑</div>
+    </div> 
+
+    <div class="container">
+        <header>
+            <h1>Distribución de Poisson</h1>
+            <h2>Ventas por Período de Tiempo</h2>
+        </header>
+
+        <div class="nav-buttons">
+            <a href="/" class="btn btn-secondary">⬅ Volver al Inicio</a>
+        </div>
+
+        <section class="formulario-seccion">
+            <h3>Pregunta Comercial</h3>
+            <p class="pregunta" style="text-align: center; font-size: 1.1em; color: #555; margin: 20px 0;">
+                "Si en promedio logro <strong>λ</strong> ventas por período, 
+                ¿cuál es la probabilidad de obtener <strong>k</strong> ventas en el próximo período?"
+            </p>
+
+            <form action="/calcular_poisson" method="POST" id="form-poisson">
+                
+                <div class="form-group">
+                    <label for="lambda">Promedio de ventas por período (λ - lambda)</label>
+                    <input type="number" id="lambda" name="lambda" min="0.1" step="0.1" required>
+                    <small>Ejemplo: 3.5 ventas por día, 7 pedidos por hora</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="k">Número de ventas a evaluar (k)</label>
+                    <input type="number" id="k" name="k" min="0" required>
+                    <small>Ejemplo: 5 ventas</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="periodo">Período de tiempo</label>
+                    <select id="periodo" name="periodo" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em;">
+                        <option value="hora">Hora</option>
+                        <option value="turno">Turno (4 horas)</option>
+                        <option value="medio día">Medio día</option>
+                        <option value="día" selected>Día</option>
+                        <option value="semana">Semana</option>
+                        <option value="quincena">Quincena</option>
+                        <option value="mes">Mes</option>
+                        <option value="trimestre">Trimestre</option>
+                        <option value="semestre">Semestre</option>
+                        <option value="año">Año</option>
+                    </select>
+                    <small>Contexto temporal para la interpretación de resultados</small>
+                </div>
+
+                <div class="btn-container">
+                    <button type="submit" class="btn">🔍 Calcular Probabilidades</button>
+                </div>
+
+            </form>
+        </section>
+
+        <div id="resultados-container">
+            <!-- Aquí se mostrarán los resultados dinámicamente -->
+        </div>
+
+        <footer>
+            <p>&copy; 2025 - Universidad Del Sinú | Distribución Poisson</p>
+        </footer>
+    </div>
+
+    <script>
+        // Validación básica del formulario
+        document.getElementById('form-poisson').addEventListener('submit', function(e) {
+            const lambda = parseFloat(document.getElementById('lambda').value);
+
+            if (lambda <= 0) {
+                e.preventDefault();
+                alert('❌ Error: El promedio (λ) debe ser mayor que 0');
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>

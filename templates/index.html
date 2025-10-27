@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Distribuciones de Probabilidad</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <div class="floating-shapes">
+        <div class="shape">σ</div>
+        <div class="shape">μ</div>
+        <div class="shape">λ</div>
+        <div class="shape">π</div>
+        <div class="shape">Σ</div>
+        <div class="shape">∞</div>
+        <div class="shape">√</div>
+        <div class="shape">∫</div>
+        <div class="shape">≈</div>
+        <div class="shape">≤</div>
+        <div class="shape">≥</div>
+        <div class="shape">χ²</div>
+        <div class="shape">β</div>
+        <div class="shape">α</div>
+        <div class="shape">∑</div>
+    </div> 
+
+    
+    <div class="container">
+        <header>
+            <h1>Simulador Web de Distribuciones de Probabilidad</h1>
+            <h2>Aplicadas a Ventas</h2>
+        </header>
+
+        <section class="autores">
+            <h3>Autores</h3>
+            <ul>
+                <li>Dalmiro Barrios Banquez</li>
+                <li>Kevin Lambraño Rodríguez</li>
+                <li>Juan Madera Coronel</li>
+                <li>Natalie Santana Rada</li>
+            </ul>
+            <p><em>Universidad Del Sinú - Programa de Ingeniería</em></p>
+        </section>
+
+        <section class="resumen">
+            <h3>Acerca del Proyecto</h3>
+            <p>
+                Este simulador permite analizar escenarios comerciales de ventas utilizando 
+                cuatro distribuciones de probabilidad discretas. Ingresa parámetros simples 
+                y obtén cálculos estadísticos, gráficos interactivos e interpretaciones 
+                automáticas en lenguaje natural.
+            </p>
+        </section>
+
+        <section class="escenarios">
+            <h3>Selecciona un Escenario</h3>
+            <div class="grid-escenarios">
+                
+                <a href="/binomial" class="card card-binomial">
+                    <div class="card-icon">&#9742;</div>
+                    <h4>Distribución Binomial</h4>
+                    <p>Ventas por Llamadas Telefónicas</p>
+                    <span class="pregunta">
+                        ¿Si hago X llamadas con Y% de probabilidad, 
+                        cuántas ventas lograré?
+                    </span>
+                </a>
+
+                <a href="/poisson" class="card card-poisson">
+                    <div class="card-icon">&#128197;</div>
+                    <h4>Distribución de Poisson</h4>
+                    <p>Ventas por Período de Tiempo</p>
+                    <span class="pregunta">
+                        Si logro X ventas promedio por día, 
+                        ¿cuántas tendré mañana?
+                    </span>
+                </a>
+
+                <a href="/geometrica" class="card card-geometrica">
+                    <div class="card-icon">&#127919;</div>
+                    <h4>Distribución Geométrica</h4>
+                    <p>Intentos hasta Primera Venta</p>
+                    <span class="pregunta">
+                        ¿En qué intento lograré mi primera venta?
+                    </span>
+                </a>
+
+                <a href="/hipergeometrica" class="card card-hipergeometrica">
+                    <div class="card-icon">&#128101;</div>
+                    <h4>Distribución Hipergeométrica</h4>
+                    <p>Selección de Clientes Potenciales</p>
+                    <span class="pregunta">
+                        De N clientes, ¿cuántos prospects buenos obtendré?
+                    </span>
+                </a>
+
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 - Universidad Del Sinú | Simulador de Distribuciones de Probabilidad</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <div class="floating-shapes">
+        <div class="shape">σ</div>
+        <div class="shape">μ</div>
+        <div class="shape">λ</div>
+        <div class="shape">π</div>
+        <div class="shape">Σ</div>
+        <div class="shape">∞</div>
+        <div class="shape">√</div>
+        <div class="shape">∫</div>
+        <div class="shape">≈</div>
+        <div class="shape">≤</div>
+        <div class="shape">≥</div>
+        <div class="shape">χ²</div>
+        <div class="shape">β</div>
+        <div class="shape">α</div>
+        <div class="shape">∑</div>
+    </div> 
+
+    <div class="container">
+        <header>
+            <h1>{{ icono }} {{ titulo }}</h1>
+            <h2>Resultados del Cálculo</h2>
+        </header>
+
+        <div class="nav-buttons">
+            <a href="{{ url_volver }}" class="btn btn-secondary">⬅ Volver</a>
+            <a href="/" class="btn btn-secondary">Inicio</a>
+        </div>
+
+        {% if error %}
+        <section class="formulario-seccion">
+            <div class="error">
+                <strong>❌ Error:</strong> {{ error }}
+            </div>
+        </section>
+        {% else %}
+        <section class="resultados">
+            <h3>Parámetros Ingresados</h3>
+            {% for param, valor in parametros.items() %}
+            <div class="resultado-item">
+                <strong>{{ param }}:</strong> {{ valor }}
+            </div>
+            {% endfor %}
+        </section>
+
+        <section class="resultados">
+            <h3>Probabilidades Calculadas</h3>
+            
+            <div class="resultado-item">
+                <strong>P(X = k):</strong> {{ "%.6f" % resultados.p_exacta }} 
+                ({{ "%.2f" % (resultados.p_exacta * 100) }}%)
+            </div>
+
+            <div class="resultado-item">
+                <strong>P(X ≤ k):</strong> {{ "%.6f" % resultados.p_acumulada_menor }} 
+                ({{ "%.2f" % (resultados.p_acumulada_menor * 100) }}%)
+            </div>
+
+            <div class="resultado-item">
+                <strong>P(X ≥ k):</strong> {{ "%.6f" % resultados.p_acumulada_mayor }} 
+                ({{ "%.2f" % (resultados.p_acumulada_mayor * 100) }}%)
+            </div>
+        </section>
+
+        <section class="resultados">
+            <h3>Estadísticos Descriptivos</h3>
+            
+            <div class="resultado-item">
+                <strong>Media (μ):</strong> {{ "%.4f" % resultados.media }}
+            </div>
+
+            <div class="resultado-item">
+                <strong>Varianza (σ²):</strong> {{ "%.4f" % resultados.varianza }}
+            </div>
+
+            <div class="resultado-item">
+                <strong>Desviación Estándar (σ):</strong> {{ "%.4f" % resultados.desviacion }}
+            </div>
+        </section>
+
+        <section class="resultados">
+            <div class="grafico-container">
+                <h3>Visualización de la Distribución</h3>
+                <img src="{{ url_for('static', filename='imagenes/' + imagen) }}" alt="Gráfico de distribución">
+            </div>
+        </section>
+
+        <section class="resultados">
+            <div class="interpretacion">
+                <h3>Interpretación Comercial</h3>
+                <p>{{ interpretacion }}</p>
+            </div>
+        </section>
+        {% endif %}
+
+        <footer>
+            <p>&copy; 2025 - Universidad Del Sinú | Simulador de Probabilidades</p>
+        </footer>
+    </div>
+</body>
+</html>
